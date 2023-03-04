@@ -34,9 +34,21 @@ function Beers() {
   }
   const beerGallery = {
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "column",
+  };
+  const beerCard = {
+    display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
+    boxShadow: "0px 0px 5px #ccc",
+    margin: "1rem 0",
+    padding: "0.5rem 0",
+    maxHeight: "200rem",
+  };
+  const divImg = {
+    display: "flex",
+    width: "30%",
+    height: "15rem",
+    justifyContent: "center",
   };
 
   return (
@@ -45,18 +57,63 @@ function Beers() {
       <div style={beerGallery}>
         {allBeers.map((beer) => {
           return (
-            <div key={beer._id} style={{ padding: "4rem" }}>
-              <div>
-                <Link to={`${beer._id}`}>
-                  <img src={beer.image_url} alt="beer" width="60rem" />
+            <div key={beer._id} style={beerCard}>
+              <div style={divImg}>
+                <Link to={`${beer._id}`} className="links">
+                  <img
+                    src={beer.image_url}
+                    alt="beer"
+                    style={{ maxWidth: "100%", maxHeight: "100%" }}
+                  />
                 </Link>
               </div>
-              <div>
-                <Link to={`${beer._id}`}>
-                  <h3>{beer.name} </h3>
+              <div
+                style={{
+                  width: "60%",
+                  height: "15rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <Link to={`${beer._id}`} className="links">
+                  <h3
+                    style={{
+                      fontSize: "2rem",
+                      fontWeight: "lighter",
+                      margin: "0",
+                    }}
+                  >
+                    {beer.name}
+                  </h3>
                 </Link>
-                <p>{beer.tagline} </p>
-                <p>Created by: {beer.contributed_by} </p>
+                <p
+                  style={{
+                    fontSize: "1.2rem",
+                    margin: "0 ",
+                    color: "#959595",
+                    fontWeight: "bold",
+                    paddingTop: "1rem 0",
+                  }}
+                >
+                  {beer.tagline}
+                </p>
+
+                <p
+                  style={{
+                    margin: "0",
+                    padding: "0.5rem 0",
+                    fontSize: ".8rem",
+                  }}
+                >
+                  <b>Created by: </b>
+                  {beer.contributed_by === undefined
+                    ? beer.contributed_by
+                    : beer.contributed_by.slice(
+                        0,
+                        beer.contributed_by.indexOf("<")
+                      )}
+                </p>
               </div>
             </div>
           );
