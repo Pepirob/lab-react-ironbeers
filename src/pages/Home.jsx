@@ -43,7 +43,7 @@ function Home() {
         </p>
       </div>
       <div>
-        <Link to="/random-beer" className="home-nav">
+        <Link to="/random-beer" className="links">
           <img src={newBeer} alt="beer" style={img} />
           <h3 style={h3}>Random Beer</h3>
         </Link>
@@ -55,7 +55,7 @@ function Home() {
         </p>
       </div>
       <div style={{ marginBottom: "0.8rem" }}>
-        <Link to="/new-beer" className="home-nav">
+        <Link to="/new-beer" className="links">
           <img src={randomBeer} alt="beer" style={img} />
           <h3 style={h3}>New beer</h3>
         </Link>

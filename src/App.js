@@ -1,5 +1,5 @@
-import "./App.css";
 import IronBeers from "./components/IronBeers";
+import "./App.css";
 
 function App() {
   return (

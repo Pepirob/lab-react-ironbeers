@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BounceLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 function Beers() {
   const navigate = useNavigate();
@@ -28,11 +28,12 @@ function Beers() {
   if (isFetching === true) {
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <BounceLoader color="#ff0000" />
+        <BeatLoader color="#36d7b7" />
       </div>
     );
   }
-  const beerGallery = {
+  // Styles
+  const mainDiv = {
     display: "flex",
     flexDirection: "column",
   };
@@ -50,11 +51,38 @@ function Beers() {
     height: "15rem",
     justifyContent: "center",
   };
+  const divInfo = {
+    width: "60%",
+    height: "15rem",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  };
+
+  const h3 = {
+    fontSize: "2rem",
+    fontWeight: "lighter",
+    margin: "0",
+  };
+
+  const pTagline = {
+    fontSize: "1.2rem",
+    margin: "0 ",
+    color: "#959595",
+    fontWeight: "bold",
+    paddingTop: "1rem ",
+  };
+
+  const pBrewer = {
+    margin: "0",
+    padding: "0.5rem 0",
+    fontSize: ".8rem",
+  };
 
   return (
     <div>
       <Header />
-      <div style={beerGallery}>
+      <div style={mainDiv}>
         {allBeers.map((beer) => {
           return (
             <div key={beer._id} style={beerCard}>
@@ -67,45 +95,13 @@ function Beers() {
                   />
                 </Link>
               </div>
-              <div
-                style={{
-                  width: "60%",
-                  height: "15rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                }}
-              >
+              <div style={divInfo}>
                 <Link to={`${beer._id}`} className="links">
-                  <h3
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "lighter",
-                      margin: "0",
-                    }}
-                  >
-                    {beer.name}
-                  </h3>
+                  <h3 style={h3}>{beer.name}</h3>
                 </Link>
-                <p
-                  style={{
-                    fontSize: "1.2rem",
-                    margin: "0 ",
-                    color: "#959595",
-                    fontWeight: "bold",
-                    paddingTop: "1rem 0",
-                  }}
-                >
-                  {beer.tagline}
-                </p>
+                <p style={pTagline}>{beer.tagline}</p>
 
-                <p
-                  style={{
-                    margin: "0",
-                    padding: "0.5rem 0",
-                    fontSize: ".8rem",
-                  }}
-                >
+                <p style={pBrewer}>
                   <b>Created by: </b>
                   {beer.contributed_by === undefined
                     ? beer.contributed_by
