@@ -42,10 +42,11 @@ function BeersDetails() {
     justifyContent: "center",
     alignItems: "center",
     marginTop: "3rem",
+    minWidth: "100%",
   };
 
   const h3 = {
-    fontSize: "2rem",
+    fontSize: "1.5rem",
     fontWeight: "lighter",
     margin: "0",
   };
@@ -55,7 +56,7 @@ function BeersDetails() {
     margin: "0 ",
     color: "#959595",
     fontWeight: "bold",
-    paddingTop: "1rem ",
+    paddingTop: "0.5rem",
   };
 
   return (
@@ -67,9 +68,9 @@ function BeersDetails() {
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
             justifyContent: "space-between",
             margin: "1rem",
+            minWidth: "90%",
           }}
         >
           <div>
@@ -82,14 +83,23 @@ function BeersDetails() {
               <b>{details.first_brewed}</b>
             </p>
           </div>
-          <p style={{ fontSize: "1rem" }}>{details.description} </p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: "1rem",
+            minWidth: "70%",
+          }}
+        >
+          <p style={{ fontSize: "1rem", margin: "0" }}>{details.description}</p>
           <p style={pTagline}>
             {details.contributed_by === undefined
               ? details.contributed_by
               : details.contributed_by.slice(
                   0,
                   details.contributed_by.indexOf("<")
-                )}{" "}
+                )}
           </p>
         </div>
       </div>

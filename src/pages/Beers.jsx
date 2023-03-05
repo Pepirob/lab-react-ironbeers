@@ -3,11 +3,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
+import { Form } from "react-bootstrap";
 
 function Beers() {
   const navigate = useNavigate();
   const [allBeers, setAllBeers] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     getData();
@@ -32,6 +34,7 @@ function Beers() {
       </div>
     );
   }
+
   // Styles
   const mainDiv = {
     display: "flex",
@@ -82,38 +85,55 @@ function Beers() {
   return (
     <div>
       <Header />
+      <Form>
+        <Form.Group className="m-3">
+          <Form.Label htmlFor="search">Search beer: </Form.Label>
+          <Form.Control
+            type="text"
+            name="search"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </Form.Group>
+      </Form>
       <div style={mainDiv}>
-        {allBeers.map((beer) => {
-          return (
-            <div key={beer._id} style={beerCard}>
-              <div style={divImg}>
-                <Link to={`${beer._id}`} className="links">
-                  <img
-                    src={beer.image_url}
-                    alt="beer"
-                    style={{ maxWidth: "100%", maxHeight: "100%" }}
-                  />
-                </Link>
-              </div>
-              <div style={divInfo}>
-                <Link to={`${beer._id}`} className="links">
-                  <h3 style={h3}>{beer.name}</h3>
-                </Link>
-                <p style={pTagline}>{beer.tagline}</p>
+        {allBeers
+          .filter((beer) => {
+            let beerLowCase = beer.name.toLowerCase();
+            let inputLowCase = searchInput.toLowerCase();
+            return beerLowCase.includes(inputLowCase);
+          })
+          .map((beer) => {
+            return (
+              <div key={beer._id} style={beerCard}>
+                <div style={divImg}>
+                  <Link to={`${beer._id}`} className="links">
+                    <img
+                      src={beer.image_url}
+                      alt="beer"
+                      style={{ maxWidth: "100%", maxHeight: "100%" }}
+                    />
+                  </Link>
+                </div>
+                <div style={divInfo}>
+                  <Link to={`${beer._id}`} className="links">
+                    <h3 style={h3}>{beer.name}</h3>
+                  </Link>
+                  <p style={pTagline}>{beer.tagline}</p>
 
-                <p style={pBrewer}>
-                  <b>Created by: </b>
-                  {beer.contributed_by === undefined
-                    ? beer.contributed_by
-                    : beer.contributed_by.slice(
-                        0,
-                        beer.contributed_by.indexOf("<")
-                      )}
-                </p>
+                  <p style={pBrewer}>
+                    <b>Created by: </b>
+                    {beer.contributed_by === undefined
+                      ? beer.contributed_by
+                      : beer.contributed_by.slice(
+                          0,
+                          beer.contributed_by.indexOf("<")
+                        )}
+                  </p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
